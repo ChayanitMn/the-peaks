@@ -1,15 +1,25 @@
+import { useState } from 'react'
 import styled from "styled-components";
 
 export default function Header() {
+
+    const [isSearchActive, setIsSearchActive] = useState(false)
+
     return (
     <Container>
         <WrapHeader>
             <Logo src="/header/logo.svg" alt="The Peaks logo" />
-            <SearchWrap>
-                <Search src="/header/search.svg" alt="search" />
-            </SearchWrap>
+            {isSearchActive ? 
+                <SearchWrapInput>
+                    <SearchInput placeholder='Search all news'/>
+                    <CustomSearchIcon src="/header/search.svg" alt="search" />
+                </SearchWrapInput> : 
+                <SearchWrapIcon onClick={() => setIsSearchActive(true)}>
+                    <Search src="/header/search.svg" alt="search" />
+                </SearchWrapIcon> }
         </WrapHeader>
-    </Container>)
+    </Container>
+    )
 }
 
 const Container = styled.div`
@@ -25,6 +35,9 @@ const WrapHeader = styled.div`
     @media (max-width: ${({ theme }) => theme.breakpoint.xl }) {
         justify-content: space-around;
     }
+    @media (max-width: ${({ theme }) => theme.breakpoint.md }) {
+        justify-content: space-between;
+    }
 `
 
 const Logo = styled.img`
@@ -36,7 +49,7 @@ const Logo = styled.img`
     }
 
 `
-const SearchWrap = styled.div`
+const SearchWrapIcon = styled.div`
     position: relative;
     width: 90px;
     border-bottom: 2px solid #fff;
@@ -45,10 +58,48 @@ const SearchWrap = styled.div`
     }
 `
 
+const SearchWrapInput = styled.div`
+    position: relative; 
+`
+
 const Search = styled.img`
     position: absolute;
     width: 17px;
     height: auto;
     left: 40%;
     bottom: 12px;
+`
+
+const CustomSearchIcon = styled.img`
+    position: absolute;
+    width: 17px;
+    height: auto;
+    right: 40px;
+    bottom: 12px;
+`
+
+const SearchInput = styled.input`
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    padding: 11px 40px 9px 27px;
+    background-color: #2153A3;
+    outline: none;
+    border: none;
+    border-bottom: 3px solid #FFFFFF;
+    margin-right: 16px;
+    ::placeholder {
+        color: #FFFFFF;
+        opacity: 0.4;
+    }
+    @media (max-width: ${({ theme }) => theme.breakpoint.lg }) {
+        width: 150px;
+    }
+    @media (max-width: ${({ theme }) => theme.breakpoint.md }) {
+        width: 100px;
+    }
 `
