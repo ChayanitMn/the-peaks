@@ -13,6 +13,15 @@ const theme = {
   colors: {
     primary: '#09357B',
   },
+  breakpoint: {
+    sm: '575px',
+    md: '767px',
+    lg: '991px',
+    xl: '1200px'
+  },
+  layout: {
+    width: '1100px',
+  }
 }
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -25,8 +34,3 @@ export default function App({ Component, pageProps }: AppProps) {
     </>
   )
 }
- 
-// App.getInitialProps = async (appContext: AppContext) => {
-//   const appProps = await App.getInitialProps(appContext)
-//   return {...appProps}
-// }
