@@ -27,10 +27,10 @@ export default function SortByComponent() {
             {isOpen && (
                 <DropDownListContainer>
                     <DropDownList>
-                        {options.map((option) => (
+                        {options.map((option, index) => (
                             <ListItem
                                 onClick={onOptionClicked(option)}
-                                key={Math.random()}
+                                key={index}
                             >
                                 {option}
                             </ListItem>
