@@ -1,24 +1,28 @@
 import { useState } from 'react'
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export default function Header() {
-
     const [isSearchActive, setIsSearchActive] = useState(false)
 
     return (
-    <Container>
-        <WrapHeader>
-            <Logo src="/header/logo.svg" alt="The Peaks logo" />
-            {isSearchActive ? 
-                <SearchWrapInput>
-                    <SearchInput placeholder='Search all news'/>
-                    <CustomSearchIcon src="/header/search.svg" alt="search" />
-                </SearchWrapInput> : 
-                <SearchWrapIcon onClick={() => setIsSearchActive(true)}>
-                    <Search src="/header/search.svg" alt="search" />
-                </SearchWrapIcon> }
-        </WrapHeader>
-    </Container>
+        <Container>
+            <WrapHeader>
+                <Logo src="/header/logo.svg" alt="The Peaks logo" />
+                {isSearchActive ? (
+                    <SearchWrapInput>
+                        <SearchInput placeholder="Search all news" />
+                        <CustomSearchIcon
+                            src="/icons/search.svg"
+                            alt="search"
+                        />
+                    </SearchWrapInput>
+                ) : (
+                    <SearchWrapIcon onClick={() => setIsSearchActive(true)}>
+                        <Search src="/icons/search.svg" alt="search" />
+                    </SearchWrapIcon>
+                )}
+            </WrapHeader>
+        </Container>
     )
 }
 
@@ -32,10 +36,10 @@ const WrapHeader = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    @media (max-width: ${({ theme }) => theme.breakpoint.xl }) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.xl}) {
         justify-content: space-around;
     }
-    @media (max-width: ${({ theme }) => theme.breakpoint.md }) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
         justify-content: space-between;
     }
 `
@@ -44,22 +48,21 @@ const Logo = styled.img`
     width: 142px;
     height: auto;
     padding: 31px 0px 39px;
-    @media (max-width: ${({ theme }) => theme.breakpoint.md }) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
         width: 100px;
     }
-
 `
 const SearchWrapIcon = styled.div`
     position: relative;
     width: 90px;
     border-bottom: 2px solid #fff;
-    @media (max-width: ${({ theme }) => theme.breakpoint.md }) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
         width: 50px;
     }
 `
 
 const SearchWrapInput = styled.div`
-    position: relative; 
+    position: relative;
 `
 
 const Search = styled.img`
@@ -85,21 +88,21 @@ const SearchInput = styled.input`
     width: 300px;
     font-size: 16px;
     line-height: 24px;
-    color: #FFFFFF;
+    color: #ffffff;
     padding: 11px 40px 9px 27px;
-    background-color: #2153A3;
+    background-color: #2153a3;
     outline: none;
     border: none;
-    border-bottom: 3px solid #FFFFFF;
+    border-bottom: 3px solid #ffffff;
     margin-right: 16px;
     ::placeholder {
-        color: #FFFFFF;
+        color: #ffffff;
         opacity: 0.4;
     }
-    @media (max-width: ${({ theme }) => theme.breakpoint.lg }) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.lg}) {
         width: 150px;
     }
-    @media (max-width: ${({ theme }) => theme.breakpoint.md }) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
         width: 100px;
     }
 `
