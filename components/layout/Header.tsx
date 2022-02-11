@@ -7,7 +7,9 @@ export default function Header() {
     return (
         <Container>
             <WrapHeader>
-                <Logo src="/header/logo.svg" alt="The Peaks logo" />
+                <a href="/">
+                    <Logo src="/header/logo.svg" alt="The Peaks logo" />
+                </a>
                 {isSearchActive ? (
                     <SearchWrapInput>
                         <SearchInput placeholder="Search all news" />
