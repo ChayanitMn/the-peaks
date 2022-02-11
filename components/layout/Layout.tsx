@@ -1,18 +1,16 @@
-import { ReactNode } from "react";
-import styled from "styled-components";
-import { Footer,Header } from ".";
+import { ReactNode } from 'react'
+import styled from 'styled-components'
+import { Footer, Header } from '.'
 
 type Props = {
     children?: ReactNode
 }
 
-const LayoutComponent = ({children}: Props) => {
+const LayoutComponent = ({ children }: Props) => {
     return (
         <>
             <Header />
-            <Container>
-                {children}
-            </Container>
+            <Container>{children}</Container>
             <Footer />
         </>
     )
@@ -21,5 +19,5 @@ const LayoutComponent = ({children}: Props) => {
 export default LayoutComponent
 
 const Container = styled.div`
-
+    padding: 0 16px;
 `

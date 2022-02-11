@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 interface Props {
     isAdd: boolean
+    isClicked: boolean
 }
 
 export default function BookmarkComponent() {
@@ -11,7 +12,7 @@ export default function BookmarkComponent() {
 
     useEffect(() => {
         renderTabMessage()
-    }, [isAddBookmark])
+    }, [isAddBookmark, isButtonClicked])
 
     const onClickButton = () => {
         setIsAddBookmark(!isAddBookmark)
@@ -22,7 +23,10 @@ export default function BookmarkComponent() {
         if (isButtonClicked) {
             if (isAddBookmark) {
                 return (
-                    <TabMessage isAdd={isAddBookmark}>
+                    <TabMessage
+                        isAdd={isAddBookmark}
+                        isClicked={isButtonClicked}
+                    >
                         <BookmarkIcon
                             src="/icons/bookmark.svg"
                             alt="bookmark"
@@ -32,7 +36,10 @@ export default function BookmarkComponent() {
                 )
             } else {
                 return (
-                    <TabMessage isAdd={isAddBookmark}>
+                    <TabMessage
+                        isAdd={isAddBookmark}
+                        isClicked={isButtonClicked}
+                    >
                         <BookmarkIcon
                             src="/icons/bookmark-off.svg"
                             alt="bookmark"
@@ -45,15 +52,30 @@ export default function BookmarkComponent() {
     }
 
     return (
-        <>
+        <Container>
             <Button onClick={() => onClickButton()}>
                 <BookmarkIcon src="/icons/bookmark.svg" alt="bookmark" />
                 {isAddBookmark ? 'REMOVE BOOKMARK' : 'ADD BOOKMARK'}
             </Button>
             {renderTabMessage()}
-        </>
+        </Container>
     )
 }
+
+const Container = styled.div`
+    @keyframes hideAnimation {
+        from {
+            visibility: visible;
+            width: 100%;
+            height: 32px;
+        }
+        to {
+            visibility: hidden;
+            width: 0;
+            height: 0;
+        }
+    }
+`
 
 const Button = styled.button`
     display: flex;
@@ -94,4 +116,8 @@ const TabMessage = styled.div<Props>`
     color: #fff;
     text-transform: uppercase;
     background-color: ${(props) => (props.isAdd ? '#388E3C' : '#D32F2F')};
+    /* animation: ${(props) =>
+        props.isClicked ? 'hideAnimation 0s ease-in 5s' : 'none'};
+    animation-fill-mode: ${(props) =>
+        props.isClicked ? 'forwards' : 'none'}; */
 `

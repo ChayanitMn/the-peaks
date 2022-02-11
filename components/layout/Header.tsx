@@ -36,9 +36,6 @@ const WrapHeader = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    @media (max-width: ${({ theme }) => theme.breakpoint.xl}) {
-        justify-content: space-around;
-    }
     @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
         justify-content: space-between;
     }
@@ -48,6 +45,7 @@ const Logo = styled.img`
     width: 142px;
     height: auto;
     padding: 31px 0px 39px;
+    margin-left: 16px;
     @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
         width: 100px;
     }
@@ -56,6 +54,7 @@ const SearchWrapIcon = styled.div`
     position: relative;
     width: 90px;
     border-bottom: 2px solid #fff;
+    margin-right: 16px;
     @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
         width: 50px;
     }
