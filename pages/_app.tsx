@@ -23,6 +23,9 @@ const GlobalStyle = createGlobalStyle`
     display: block;
     height: 243px;
   }
+  p {
+      margin: unset;
+  }
 `
 
 const theme = {
