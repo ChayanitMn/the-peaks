@@ -5,7 +5,7 @@ export default function AllBookmark() {
     return (
         <Layout>
             <Container>
-                <Category>All bookmark</Category>
+                <CategoryTitle>All bookmark</CategoryTitle>
                 <Content>
                     <Card>
                         <a href="#">
@@ -123,13 +123,16 @@ const Container = styled.div`
     }
 `
 
-const Category = styled.h1`
+const CategoryTitle = styled.h1`
     font-family: Georgia;
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
     color: rgba(0, 0, 0, 0.87);
     line-height: 49px;
+    margin: unset;
+    margin-top: 44px;
+    margin-bottom: 30px;
     @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
         font-size: 36px;
     }
@@ -151,6 +154,7 @@ const Content = styled.div`
         gap: 30px 0px;
     }
 `
+
 const Card = styled.div`
     position: relative;
 `
@@ -182,4 +186,5 @@ const Title = styled.h3`
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: unset;
 `

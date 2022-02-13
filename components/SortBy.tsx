@@ -15,7 +15,7 @@ export default function SortByComponent() {
     const options = ['Newest first', 'Oldest first']
 
     return (
-        <>
+        <Container>
             <DropDownHeader onClick={toggling}>
                 {selectedOption || 'Newest first'}
                 {isOpen ? (
@@ -38,14 +38,17 @@ export default function SortByComponent() {
                     </DropDownList>
                 </DropDownListContainer>
             )}
-        </>
+        </Container>
     )
 }
 
+const Container = styled.div`
+    /* max-width: 255px;
+    width: 100%; */
+`
+
 const DropDownHeader = styled.div`
     position: relative;
-    max-width: 255px;
-    width: 100%;
     font-size: 16px;
     line-height: 24px;
     padding: 11px 60px 10px 5px;
@@ -71,13 +74,13 @@ const DropDownList = styled.ul`
     font-size: 16px;
     line-height: 24px;
     &:first-child {
-        margin-top: 11px;
+        padding-top: 11px;
     }
 `
 
 const ListItem = styled('li')`
     list-style: none;
-    margin: 4px auto 11px 4px;
+    padding: 4px 16px 11px 4px;
 `
 const DropdownIcon = styled.img`
     position: absolute;

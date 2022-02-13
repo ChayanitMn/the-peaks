@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    background-color: #F2F2F2;
     box-sizing: border-box;
   }
   body::after {

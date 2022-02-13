@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export default function Footer() {
-    return (<Container></Container>)
+    return <Container></Container>
 }
 
 const Container = styled.footer`
@@ -10,9 +10,7 @@ const Container = styled.footer`
     height: 243px;
     width: 100%;
     background-color: ${({ theme }) => theme.colors.primary};
-    @media (max-width: ${({ theme }) => theme.breakpoint.md }) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
         height: 100px;
     }
-
-
 `
