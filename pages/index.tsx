@@ -26,14 +26,106 @@ export default function Home() {
                     </WrapSortBy>
                 </TitleBar>
 
+                {/* Main Top News */}
+                <TopFiveNews>
+                    <WrapMainLeft>
+                        <FirstNews>
+                            <Card>
+                                <a href="#">
+                                    <NewsImg
+                                        src="/home/1.png"
+                                        alt="news image"
+                                    />
+                                    <CustomWrapTitleOne>
+                                        <CustomTitle>
+                                            Global report: WHO warns of
+                                            accelerating Covid-19 infections in
+                                            Africa
+                                        </CustomTitle>
+                                        <NewsDesc>
+                                            Continent is seeing more cases
+                                            spread to the provinces; Trump
+                                            supporters can’t sue over catching
+                                            Covid-19 at rallies; Brazil confirms
+                                            30,000 new cases
+                                        </NewsDesc>
+                                    </CustomWrapTitleOne>
+                                </a>
+                            </Card>
+                        </FirstNews>
+                    </WrapMainLeft>
+                    <WrapMainRight>
+                        <WrapSubNews className="mt-lg-30">
+                            <Top>
+                                <Card>
+                                    <a href="#">
+                                        <NewsImg
+                                            src="/home/2.png"
+                                            alt="news image"
+                                        />
+                                        <CustomWrapTitleTop>
+                                            <CustomTitleTop className="title-3-line">
+                                                Global report: WHO warns of
+                                                accelerating Covid-19 infections
+                                                in Africa
+                                            </CustomTitleTop>
+                                        </CustomWrapTitleTop>
+                                    </a>
+                                </Card>
+                            </Top>
+                            <Top className="ml-30">
+                                <Card>
+                                    <a href="#">
+                                        <NewsImg
+                                            src="/home/2.png"
+                                            alt="news image"
+                                        />
+                                        <CustomWrapTitleThree>
+                                            <CustomTitleTop className="title-3-line">
+                                                Global report: WHO warns of
+                                                accelerating Covid-19 infections
+                                                in Africa
+                                            </CustomTitleTop>
+                                        </CustomWrapTitleThree>
+                                    </a>
+                                </Card>
+                            </Top>
+                        </WrapSubNews>
+                        <WrapSubNews className="mt-lg-170">
+                            <Bottom>
+                                <Card>
+                                    <a href="#">
+                                        <CustomWrapTitleFour>
+                                            <CustomTitleBottom>
+                                                Spike Lee: 'Race relations today
+                                                are a direct response to having
+                                                a black president'
+                                            </CustomTitleBottom>
+                                        </CustomWrapTitleFour>
+                                    </a>
+                                </Card>
+                            </Bottom>
+                            <Bottom className="ml-30">
+                                <Card>
+                                    <a href="#">
+                                        <CustomWrapTitleFive>
+                                            <CustomTitleBottom>
+                                                Spanish archaeologist sentenced
+                                                for faking Basque finds
+                                            </CustomTitleBottom>
+                                        </CustomWrapTitleFive>
+                                    </a>
+                                </Card>
+                            </Bottom>
+                        </WrapSubNews>
+                    </WrapMainRight>
+                </TopFiveNews>
+
                 {/* Sub Top news */}
                 <Content>
                     <Card>
                         <a href="#">
-                            <NewsImg
-                                src="/news-card/pic.png"
-                                alt="news image"
-                            />
+                            <NewsImg src="/home/3.png" alt="news image" />
                             <WrapTitle>
                                 <CustomTitle>
                                     Coronavirus live news: markets fall over
@@ -136,15 +228,6 @@ export default function Home() {
                         </a>
                     </Card>
                 </Content>
-
-                {/*
-                <TopFiveNews>
-                    <MainNews>Hello</MainNews>
-                    <SubOne>Hello</SubOne>
-                    <SubTwo>Hello</SubTwo>
-                    <SubThree>Hello</SubThree>
-                    <SubFour>Hello</SubFour>
-                </TopFiveNews> */}
             </Container>
         </Layout>
     )
@@ -154,6 +237,21 @@ const Container = styled.div`
     width: 100%;
     margin: 0 auto 100px;
 
+    .ml-30 {
+        margin-left: 30px;
+    }
+
+    .title-3-line {
+        padding: 10px 10px 0px;
+    }
+    @media (max-width: ${({ theme }) => theme.breakpoint.lg}) {
+        .mt-lg-30 {
+            margin-top: 30px;
+        }
+        .mt-lg-170 {
+            margin-top: 170px;
+        }
+    }
     @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
         margin: 0 auto 50px;
     }
@@ -221,6 +319,10 @@ const Button = styled.button`
     }
 `
 
+const Card = styled.div`
+    position: relative;
+`
+
 const BookmarkIcon = styled.img`
     height: 18px;
     width: 18px;
@@ -234,7 +336,34 @@ const WrapTitle = styled.div`
     height: 134px;
     width: 100%;
     background: rgba(9, 53, 123, 0.9);
-    border-bottom: 3px solid #d32f2f; ;
+    border-bottom: 3px solid #d32f2f;
+`
+
+const CustomWrapTitleTop = styled(WrapTitle)`
+    height: 107px;
+`
+
+const CustomWrapTitleOne = styled(WrapTitle)`
+    border-bottom: 3px solid #388e3c;
+`
+
+const CustomWrapTitleTwo = styled(WrapTitle)`
+    height: 107px;
+`
+
+const CustomWrapTitleThree = styled(WrapTitle)`
+    height: 107px;
+    border-bottom: 3px solid #ffc107;
+`
+
+const CustomWrapTitleFour = styled(WrapTitle)`
+    height: 138px;
+    border-bottom: 3px solid #2196f3;
+`
+
+const CustomWrapTitleFive = styled(WrapTitle)`
+    height: 138px;
+    border-bottom: 3px solid #388e3c;
 `
 
 const Title = styled.h3`
@@ -259,8 +388,15 @@ const CustomTitle = styled(Title)`
     padding: 10px 10px 0px;
 `
 
-const Card = styled.div`
-    position: relative;
+const CustomTitleTop = styled(Title)`
+    -webkit-line-clamp: 3;
+    font-size: 18px;
+    line-height: 27px;
+`
+
+const CustomTitleBottom = styled(Title)`
+    font-size: 18px;
+    line-height: 27px;
 `
 
 const NewsImg = styled.img`
@@ -272,6 +408,7 @@ const NewsDesc = styled.p`
     letter-spacing: 0.1px;
     color: #ffffff;
     padding: 0 10px;
+    margin-top: 8px;
 `
 
 const WrapSortBy = styled.div`
@@ -300,49 +437,48 @@ const WrapViewBookmark = styled.div`
     }
 `
 
-// const TopFiveNews = styled.div`
-//     display: grid;
-//     grid-template-columns: 1fr repeat(2, 0.5fr) repeat(2, 1fr);
-//     grid-template-rows: repeat(2, 1.5fr) repeat(3, 1fr);
-//     grid-column-gap: 30px;
-//     grid-row-gap: 30px;
-// `
+const TopFiveNews = styled.div`
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+    @media (max-width: ${({ theme }) => theme.breakpoint.lg}) {
+        display: block;
+    }
+`
 
-// const MainNews = styled.div`
-//     /* grid-area: 1 / 1 / 3 / 2; */
-//     /* grid-area: 1 / 1 / 12 / 2; */
-//     grid-area: 1 / 1 / 3 / 2;
-//     background-color: red;
-// `
+const WrapMainLeft = styled.div`
+    width: 50%;
+    @media (max-width: ${({ theme }) => theme.breakpoint.lg}) {
+        width: 100%;
+    }
+`
 
-// // const SubNews = styled.div`
-// //     grid-area: 1 / 2 / 2 / 3;
-// // `
+const WrapMainRight = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    margin-left: 30px;
+    @media (max-width: ${({ theme }) => theme.breakpoint.lg}) {
+        width: 100%;
+        margin: unset;
+    }
+`
 
-// const SubOne = styled.div`
-//     /* grid-area: 1 / 2 / 2 / 3; */
-//     /* grid-area: 1 / 2 / 8 / 3; */
-//     grid-area: 1 / 3 / 7 / 4;
-//     background-color: green;
-// `
+const WrapSubNews = styled.div`
+    display: flex;
+    max-width: 100%;
+    width: 100%;
+`
 
-// const SubTwo = styled.div`
-//     /* grid-area: 1 / 3 / 2 / 4 */
-//     /* grid-area: 1 / 3 / 4 / 4; */
-//     grid-area: 1 / 3 / 7 / 4;
-//     background-color: black;
-// `
+const FirstNews = styled.div``
 
-// const SubThree = styled.div`
-//     /* grid-area: 2 / 2 / 3 / 3; */
-//     /* grid-area: 6 / 2 / 10 / 3; */
-//     grid-area: 7 / 3 / 12 / 4;
-//     background-color: blue;
-// `
+const Top = styled.div`
+    display: block;
+    width: 100%;
+`
 
-// const SubFour = styled.div`
-//     /* grid-area: 2 / 3 / 3 / 4; */
-//     /* grid-area: 6 / 3 / 12 / 4; */
-//     grid-area: 7 / 3 / 12 / 4;
-//     background-color: brown;
-// `
+const Bottom = styled.div`
+    display: grid;
+    width: 100%;
+`

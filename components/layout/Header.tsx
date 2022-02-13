@@ -80,6 +80,9 @@ const CustomSearchIcon = styled.img`
     height: auto;
     right: 40px;
     bottom: 12px;
+    @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
+        right: 35px;
+    }
 `
 
 const SearchInput = styled.input`
@@ -105,5 +108,6 @@ const SearchInput = styled.input`
     }
     @media (max-width: ${({ theme }) => theme.breakpoint.md}) {
         width: 100px;
+        font-size: 14px;
     }
 `
