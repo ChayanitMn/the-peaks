@@ -1,7 +1,7 @@
 ## Getting Started
 
 1. `git clone git@github.com:ChayanitMn/the-peaks.git`
-2. `git checkout master`
+2. `git checkout main`
 3. `yarn install`
 4. get API_KEY from e-mail
 5. If you can't access 'API_KEY' please input directly in `page/index` line 14 after '='
