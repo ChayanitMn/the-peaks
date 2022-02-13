@@ -1,9 +1,46 @@
 import Router from 'next/router'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Layout from '../components/layout/Layout'
 import { SortBy } from '../components/'
 
 export default function Home() {
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    const API_KEY = process.env.API_KEY
+
+    async function fetchData() {
+        const res = await fetch(
+            `https://content.guardianapis.com/search?api-key=${API_KEY}&sessions=news`,
+        )
+        res.json()
+            .then((res) => setData(res.response.results))
+            .catch((err) => `Error is ${err}`)
+    }
+
+    const renderData = () => {
+        const news = data.map((data) => {
+            const { webTitle, sectionId } = data
+            if (sectionId === 'sport') {
+                return (
+                    <Card>
+                        <a href="/1">
+                            <NewsImg src="/home/sport.png" alt="news image" />
+                            <WrapTitle>
+                                <Title>{webTitle}</Title>
+                            </WrapTitle>
+                        </a>
+                    </Card>
+                )
+            }
+        })
+        return news
+    }
+
     return (
         <Layout>
             <Container>
@@ -31,7 +68,7 @@ export default function Home() {
                     <WrapMainLeft>
                         <FirstNews>
                             <Card>
-                                <a href="#">
+                                <a href="/1">
                                     <NewsImg
                                         src="/home/1.png"
                                         alt="news image"
@@ -58,7 +95,7 @@ export default function Home() {
                         <WrapSubNews className="mt-lg-30">
                             <Top>
                                 <Card>
-                                    <a href="#">
+                                    <a href="/1">
                                         <NewsImg
                                             src="/home/2.png"
                                             alt="news image"
@@ -75,9 +112,9 @@ export default function Home() {
                             </Top>
                             <Top className="ml-30">
                                 <Card>
-                                    <a href="#">
+                                    <a href="/1">
                                         <NewsImg
-                                            src="/home/2.png"
+                                            src="/home/3.png"
                                             alt="news image"
                                         />
                                         <CustomWrapTitleThree>
@@ -94,7 +131,7 @@ export default function Home() {
                         <WrapSubNews className="mt-lg-170">
                             <Bottom>
                                 <Card>
-                                    <a href="#">
+                                    <a href="/1">
                                         <CustomWrapTitleFour>
                                             <CustomTitleBottom>
                                                 Spike Lee: 'Race relations today
@@ -107,7 +144,7 @@ export default function Home() {
                             </Bottom>
                             <Bottom className="ml-30">
                                 <Card>
-                                    <a href="#">
+                                    <a href="/1">
                                         <CustomWrapTitleFive>
                                             <CustomTitleBottom>
                                                 Spanish archaeologist sentenced
@@ -125,7 +162,7 @@ export default function Home() {
                 <Content>
                     <Card>
                         <a href="#">
-                            <NewsImg src="/home/3.png" alt="news image" />
+                            <NewsImg src="/home/4.png" alt="news image" />
                             <WrapTitle>
                                 <CustomTitle>
                                     Coronavirus live news: markets fall over
@@ -140,10 +177,7 @@ export default function Home() {
                     </Card>
                     <Card>
                         <a href="#">
-                            <NewsImg
-                                src="/news-card/pic.png"
-                                alt="news image"
-                            />
+                            <NewsImg src="/home/5.png" alt="news image" />
                             <WrapTitle>
                                 <CustomTitle>
                                     Liverpool Premier League trophy lift:
@@ -160,10 +194,7 @@ export default function Home() {
                     </Card>
                     <Card>
                         <a href="#">
-                            <NewsImg
-                                src="/news-card/pic.png"
-                                alt="news image"
-                            />
+                            <NewsImg src="/home/6.png" alt="news image" />
                             <WrapTitle>
                                 <CustomTitle>
                                     Liverpool Premier League trophy lift:
@@ -182,52 +213,7 @@ export default function Home() {
 
                 {/* Sport News */}
                 <CategoryTitle>Sports</CategoryTitle>
-                <Content>
-                    <Card>
-                        <a href="#">
-                            <NewsImg
-                                src="/news-card/pic.png"
-                                alt="news image"
-                            />
-                            <WrapTitle>
-                                <Title>
-                                    Liverpool Premier League trophy lift:
-                                    Special ceremony to mark success Liverpool
-                                    Premier League trophy lift: Special ceremony
-                                    to mark success
-                                </Title>
-                            </WrapTitle>
-                        </a>
-                    </Card>
-                    <Card>
-                        <a href="#">
-                            <NewsImg
-                                src="/news-card/pic.png"
-                                alt="news image"
-                            />
-                            <WrapTitle>
-                                <Title>
-                                    Liverpool Premier League trophy lift:
-                                    Special ceremony to mark succes
-                                </Title>
-                            </WrapTitle>
-                        </a>
-                    </Card>
-                    <Card>
-                        <a href="#">
-                            <NewsImg
-                                src="/news-card/pic.png"
-                                alt="news image"
-                            />
-                            <WrapTitle>
-                                <Title>
-                                    Liverpool Premier League trophy lift:
-                                    Special ceremony to mark success
-                                </Title>
-                            </WrapTitle>
-                        </a>
-                    </Card>
-                </Content>
+                <Content>{renderData()}</Content>
             </Container>
         </Layout>
     )
