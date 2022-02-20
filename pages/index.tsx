@@ -3,26 +3,27 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Layout from '../components/layout/Layout'
 import { SortBy } from '../components/'
-import newsData from '../types/newsData'
+import NewsData from '../types/newsData'
 
 export default function Home() {
-    const [topNewsData, setTopNewsData] = useState<newsData[]>([])
+    const [topNewsData, setTopNewsData] = useState<NewsData[]>([])
     const [sportData, setSportData] = useState([])
     const [cultureData, setCultureData] = useState([])
     const [lifeAndStyleData, setLifeAndStyleData] = useState([])
+    const [sortBy, setSortBy] = useState('newest')
 
     useEffect(() => {
         fetchTopNewsData()
         fetchSportData()
         fetchCultureData()
         fetchLifeAndStyleData()
-    }, [])
+    }, [sortBy])
 
     const API_KEY = '08731270-8295-4142-8f41-a30ed1b544e9'
 
     async function fetchTopNewsData() {
         const res = await fetch(
-            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=news`,
+            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=news&order-by=${sortBy}`,
         )
         res.json()
             .then((res) => setTopNewsData(res.response.results))
@@ -31,7 +32,7 @@ export default function Home() {
 
     async function fetchSportData() {
         const res = await fetch(
-            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=sport`,
+            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=sport&order-by=${sortBy}`,
         )
         res.json()
             .then((res) => setSportData(res.response.results))
@@ -39,7 +40,7 @@ export default function Home() {
     }
     async function fetchCultureData() {
         const res = await fetch(
-            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=culture`,
+            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=culture&order-by=${sortBy}`,
         )
         res.json()
             .then((res) => setCultureData(res.response.results))
@@ -47,7 +48,7 @@ export default function Home() {
     }
     async function fetchLifeAndStyleData() {
         const res = await fetch(
-            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=lifeandstyle`,
+            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=lifeandstyle&order-by=${sortBy}`,
         )
         res.json()
             .then((res) => setLifeAndStyleData(res.response.results))
@@ -280,7 +281,7 @@ export default function Home() {
                         </Button>
                     </WrapViewBookmark>
                     <WrapSortBy>
-                        <SortBy />
+                        <SortBy sortBy={sortBy} setSortBy={setSortBy} />
                     </WrapSortBy>
                 </TitleBar>
 

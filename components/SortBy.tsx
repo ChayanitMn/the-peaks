@@ -1,15 +1,21 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 
-export default function SortByComponent() {
+type Props = {
+    sortBy: string
+    setSortBy: (val: string) => void
+}
+
+export default function SortByComponent({ sortBy, setSortBy }: Props) {
     const [isOpen, setIsOpen] = useState(false)
     const [selectedOption, setSelectedOption] = useState(null)
 
     const toggling = () => setIsOpen(!isOpen)
 
-    const onOptionClicked = (value: any) => () => {
+    const onOptionClicked = (value: any, index: number) => () => {
         setSelectedOption(value)
         setIsOpen(false)
+        index == 0 ? setSortBy('newest') : setSortBy('oldest')
     }
 
     const options = ['Newest first', 'Oldest first']
@@ -29,7 +35,7 @@ export default function SortByComponent() {
                     <DropDownList>
                         {options.map((option, index) => (
                             <ListItem
-                                onClick={onOptionClicked(option)}
+                                onClick={onOptionClicked(option, index)}
                                 key={index}
                             >
                                 {option}
