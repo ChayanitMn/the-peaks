@@ -3,36 +3,257 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Layout from '../components/layout/Layout'
 import { SortBy } from '../components/'
+import newsData from '../types/newsData'
 
 export default function Home() {
-    const [data, setData] = useState([])
+    const [topNewsData, setTopNewsData] = useState<newsData[]>([])
+    const [sportData, setSportData] = useState([])
+    const [cultureData, setCultureData] = useState([])
+    const [lifeAndStyleData, setLifeAndStyleData] = useState([])
 
     useEffect(() => {
-        fetchData()
+        fetchTopNewsData()
+        fetchSportData()
+        fetchCultureData()
+        fetchLifeAndStyleData()
     }, [])
 
-    const API_KEY = process.env.API_KEY
+    const API_KEY = '08731270-8295-4142-8f41-a30ed1b544e9'
 
-    async function fetchData() {
+    async function fetchTopNewsData() {
         const res = await fetch(
-            `https://content.guardianapis.com/search?api-key=${API_KEY}&sessions=news`,
+            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=news`,
         )
         res.json()
-            .then((res) => setData(res.response.results))
+            .then((res) => setTopNewsData(res.response.results))
             .catch((err) => `Error is ${err}`)
     }
 
-    const renderData = () => {
-        const news = data.map((data) => {
+    async function fetchSportData() {
+        const res = await fetch(
+            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=sport`,
+        )
+        res.json()
+            .then((res) => setSportData(res.response.results))
+            .catch((err) => `Error is ${err}`)
+    }
+    async function fetchCultureData() {
+        const res = await fetch(
+            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=culture`,
+        )
+        res.json()
+            .then((res) => setCultureData(res.response.results))
+            .catch((err) => `Error is ${err}`)
+    }
+    async function fetchLifeAndStyleData() {
+        const res = await fetch(
+            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=lifeandstyle`,
+        )
+        res.json()
+            .then((res) => setLifeAndStyleData(res.response.results))
+            .catch((err) => `Error is ${err}`)
+    }
+
+    const renderTopNewsData = () => {
+        return (
+            <>
+                <TopFiveNews>
+                    <WrapMainLeft>
+                        <FirstNews>
+                            <Card>
+                                <a href="/1">
+                                    <NewsImg
+                                        src="/home/1.png"
+                                        alt="news image"
+                                    />
+                                    <CustomWrapTitleOne>
+                                        <CustomTitle>
+                                            {topNewsData[0]?.webTitle}
+                                        </CustomTitle>
+                                        <NewsDesc>
+                                            Continent is seeing more cases
+                                            spread to the provinces; Trump
+                                            supporters can’t sue over catching
+                                            Covid-19 at rallies; Brazil confirms
+                                            30,000 new cases
+                                        </NewsDesc>
+                                    </CustomWrapTitleOne>
+                                </a>
+                            </Card>
+                        </FirstNews>
+                    </WrapMainLeft>
+                    <WrapMainRight>
+                        <WrapSubNews className="mt-lg-30">
+                            <Top>
+                                <Card>
+                                    <a href="/1">
+                                        <NewsImg
+                                            src="/home/2.png"
+                                            alt="news image"
+                                        />
+                                        <CustomWrapTitleTop>
+                                            <CustomTitleTop className="title-3-line">
+                                                {topNewsData[1]?.webTitle}
+                                            </CustomTitleTop>
+                                        </CustomWrapTitleTop>
+                                    </a>
+                                </Card>
+                            </Top>
+                            <Top className="ml-30">
+                                <Card>
+                                    <a href="/1">
+                                        <NewsImg
+                                            src="/home/3.png"
+                                            alt="news image"
+                                        />
+                                        <CustomWrapTitleThree>
+                                            <CustomTitleTop className="title-3-line">
+                                                {topNewsData[2]?.webTitle}
+                                            </CustomTitleTop>
+                                        </CustomWrapTitleThree>
+                                    </a>
+                                </Card>
+                            </Top>
+                        </WrapSubNews>
+                        <WrapSubNews className="mt-lg-170">
+                            <Bottom>
+                                <Card>
+                                    <a href="/1">
+                                        <CustomWrapTitleFour>
+                                            <CustomTitleBottom>
+                                                {topNewsData[3]?.webTitle}
+                                            </CustomTitleBottom>
+                                        </CustomWrapTitleFour>
+                                    </a>
+                                </Card>
+                            </Bottom>
+                            <Bottom className="ml-30">
+                                <Card>
+                                    <a href="/1">
+                                        <CustomWrapTitleFive>
+                                            <CustomTitleBottom>
+                                                {topNewsData[4]?.webTitle}
+                                            </CustomTitleBottom>
+                                        </CustomWrapTitleFive>
+                                    </a>
+                                </Card>
+                            </Bottom>
+                        </WrapSubNews>
+                    </WrapMainRight>
+                </TopFiveNews>
+
+                {/* Sub Top news  */}
+                <Content>
+                    <Card>
+                        <a href="#">
+                            <NewsImg src="/home/4.png" alt="news image" />
+                            <WrapTitle>
+                                <CustomTitle>
+                                    {topNewsData[5]?.webTitle}
+                                </CustomTitle>
+                                <NewsDesc>
+                                    Republican senators on Capitol Hill have
+                                    expressed their dismay at a Donald Trump.
+                                </NewsDesc>
+                            </WrapTitle>
+                        </a>
+                    </Card>
+                    <Card>
+                        <a href="#">
+                            <NewsImg src="/home/5.png" alt="news image" />
+                            <WrapTitle>
+                                <CustomTitle>
+                                    {topNewsData[6]?.webTitle}
+                                </CustomTitle>
+                                <NewsDesc>
+                                    Republican senators on Capitol Hill have
+                                    expressed their dismay at a Donald Trump.
+                                </NewsDesc>
+                            </WrapTitle>
+                        </a>
+                    </Card>
+                    <Card>
+                        <a href="#">
+                            <NewsImg src="/home/6.png" alt="news image" />
+                            <WrapTitle>
+                                <CustomTitle>
+                                    {topNewsData[7]?.webTitle}
+                                </CustomTitle>
+                                <NewsDesc>
+                                    Republican senators on Capitol Hill have
+                                    expressed their dismay at a Donald Trump.
+                                </NewsDesc>
+                            </WrapTitle>
+                        </a>
+                    </Card>
+                </Content>
+            </>
+        )
+    }
+    const renderSportData = () => {
+        const news = sportData.map((data) => {
             const { webTitle, sectionId } = data
             if (sectionId === 'sport') {
                 return (
                     <Card>
                         <a href="/1">
-                            <NewsImg src="/home/sport.png" alt="news image" />
+                            <NewsImg
+                                src={`/home/${Math.floor(
+                                    Math.random() * (15 - 1 + 1) + 1,
+                                )}.png`}
+                                alt="news image"
+                            />
                             <WrapTitle>
                                 <Title>{webTitle}</Title>
                             </WrapTitle>
+                        </a>
+                    </Card>
+                )
+            }
+        })
+        return news
+    }
+
+    const renderCultureData = () => {
+        const news = cultureData.map((data) => {
+            const { webTitle, sectionId } = data
+            if (sectionId === 'culture') {
+                return (
+                    <Card>
+                        <a href="/1">
+                            <NewsImg
+                                src={`/home/${Math.floor(
+                                    Math.random() * (15 - 1 + 1) + 1,
+                                )}.png`}
+                                alt="news image"
+                            />
+                            <WrapTitleYellow>
+                                <Title>{webTitle}</Title>
+                            </WrapTitleYellow>
+                        </a>
+                    </Card>
+                )
+            }
+        })
+        return news
+    }
+
+    const renderLifeAndStyleData = () => {
+        const news = lifeAndStyleData.map((data) => {
+            const { webTitle, sectionId } = data
+            if (sectionId === 'lifeandstyle') {
+                return (
+                    <Card>
+                        <a href="/1">
+                            <NewsImg
+                                src={`/home/${Math.floor(
+                                    Math.random() * (15 - 1 + 1) + 1,
+                                )}.png`}
+                                alt="news image"
+                            />
+                            <WrapTitleBlue>
+                                <Title>{webTitle}</Title>
+                            </WrapTitleBlue>
                         </a>
                     </Card>
                 )
@@ -64,156 +285,15 @@ export default function Home() {
                 </TitleBar>
 
                 {/* Main Top News */}
-                <TopFiveNews>
-                    <WrapMainLeft>
-                        <FirstNews>
-                            <Card>
-                                <a href="/1">
-                                    <NewsImg
-                                        src="/home/1.png"
-                                        alt="news image"
-                                    />
-                                    <CustomWrapTitleOne>
-                                        <CustomTitle>
-                                            Global report: WHO warns of
-                                            accelerating Covid-19 infections in
-                                            Africa
-                                        </CustomTitle>
-                                        <NewsDesc>
-                                            Continent is seeing more cases
-                                            spread to the provinces; Trump
-                                            supporters can’t sue over catching
-                                            Covid-19 at rallies; Brazil confirms
-                                            30,000 new cases
-                                        </NewsDesc>
-                                    </CustomWrapTitleOne>
-                                </a>
-                            </Card>
-                        </FirstNews>
-                    </WrapMainLeft>
-                    <WrapMainRight>
-                        <WrapSubNews className="mt-lg-30">
-                            <Top>
-                                <Card>
-                                    <a href="/1">
-                                        <NewsImg
-                                            src="/home/2.png"
-                                            alt="news image"
-                                        />
-                                        <CustomWrapTitleTop>
-                                            <CustomTitleTop className="title-3-line">
-                                                Global report: WHO warns of
-                                                accelerating Covid-19 infections
-                                                in Africa
-                                            </CustomTitleTop>
-                                        </CustomWrapTitleTop>
-                                    </a>
-                                </Card>
-                            </Top>
-                            <Top className="ml-30">
-                                <Card>
-                                    <a href="/1">
-                                        <NewsImg
-                                            src="/home/3.png"
-                                            alt="news image"
-                                        />
-                                        <CustomWrapTitleThree>
-                                            <CustomTitleTop className="title-3-line">
-                                                Global report: WHO warns of
-                                                accelerating Covid-19 infections
-                                                in Africa
-                                            </CustomTitleTop>
-                                        </CustomWrapTitleThree>
-                                    </a>
-                                </Card>
-                            </Top>
-                        </WrapSubNews>
-                        <WrapSubNews className="mt-lg-170">
-                            <Bottom>
-                                <Card>
-                                    <a href="/1">
-                                        <CustomWrapTitleFour>
-                                            <CustomTitleBottom>
-                                                Spike Lee: 'Race relations today
-                                                are a direct response to having
-                                                a black president'
-                                            </CustomTitleBottom>
-                                        </CustomWrapTitleFour>
-                                    </a>
-                                </Card>
-                            </Bottom>
-                            <Bottom className="ml-30">
-                                <Card>
-                                    <a href="/1">
-                                        <CustomWrapTitleFive>
-                                            <CustomTitleBottom>
-                                                Spanish archaeologist sentenced
-                                                for faking Basque finds
-                                            </CustomTitleBottom>
-                                        </CustomWrapTitleFive>
-                                    </a>
-                                </Card>
-                            </Bottom>
-                        </WrapSubNews>
-                    </WrapMainRight>
-                </TopFiveNews>
-
-                {/* Sub Top news */}
-                <Content>
-                    <Card>
-                        <a href="#">
-                            <NewsImg src="/home/4.png" alt="news image" />
-                            <WrapTitle>
-                                <CustomTitle>
-                                    Coronavirus live news: markets fall over
-                                    fears of long US
-                                </CustomTitle>
-                                <NewsDesc>
-                                    Republican senators on Capitol Hill have
-                                    expressed their dismay at a Donald Trump.
-                                </NewsDesc>
-                            </WrapTitle>
-                        </a>
-                    </Card>
-                    <Card>
-                        <a href="#">
-                            <NewsImg src="/home/5.png" alt="news image" />
-                            <WrapTitle>
-                                <CustomTitle>
-                                    Liverpool Premier League trophy lift:
-                                    Special ceremony to mark success Liverpool
-                                    Premier League trophy lift: Special ceremony
-                                    to mark success
-                                </CustomTitle>
-                                <NewsDesc>
-                                    Republican senators on Capitol Hill have
-                                    expressed their dismay at a Donald Trump.
-                                </NewsDesc>
-                            </WrapTitle>
-                        </a>
-                    </Card>
-                    <Card>
-                        <a href="#">
-                            <NewsImg src="/home/6.png" alt="news image" />
-                            <WrapTitle>
-                                <CustomTitle>
-                                    Liverpool Premier League trophy lift:
-                                    Special ceremony to mark success Liverpool
-                                    Premier League trophy lift: Special ceremony
-                                    to mark success
-                                </CustomTitle>
-                                <NewsDesc>
-                                    Republican senators on Capitol Hill have
-                                    expressed their dismay at a Donald Trump.
-                                </NewsDesc>
-                            </WrapTitle>
-                        </a>
-                    </Card>
-                </Content>
+                {renderTopNewsData()}
 
                 {/* Sport News */}
                 <CategoryTitle>Sports</CategoryTitle>
-                <Content>{renderData()}</Content>
+                <Content>{renderSportData()}</Content>
+                <CategoryTitle>Culture</CategoryTitle>
+                <Content>{renderCultureData()}</Content>
+                <CategoryTitle>Life And Style</CategoryTitle>
+                <Content>{renderLifeAndStyleData()}</Content>
             </Container>
         </Layout>
     )
@@ -323,6 +403,14 @@ const WrapTitle = styled.div`
     width: 100%;
     background: rgba(9, 53, 123, 0.9);
     border-bottom: 3px solid #d32f2f;
+`
+
+const WrapTitleYellow = styled(WrapTitle)`
+    border-bottom: 3px solid #ffca28;
+`
+
+const WrapTitleBlue = styled(WrapTitle)`
+    border-bottom: 3px solid #2196f3;
 `
 
 const CustomWrapTitleTop = styled(WrapTitle)`
