@@ -1,9 +1,9 @@
 import Router from 'next/router'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Layout from '../components/layout/Layout'
-import { SortBy } from '../components/'
 import NewsData from '../types/newsData'
+import Layout from '../components/layout/Layout'
+import { SortBy, Spinner } from '../components/'
 
 export default function Home() {
     const [topNewsData, setTopNewsData] = useState<NewsData[]>([])
@@ -11,12 +11,15 @@ export default function Home() {
     const [cultureData, setCultureData] = useState([])
     const [lifeAndStyleData, setLifeAndStyleData] = useState([])
     const [sortBy, setSortBy] = useState('newest')
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
+        setIsLoading(true)
         fetchTopNewsData()
         fetchSportData()
         fetchCultureData()
         fetchLifeAndStyleData()
+        setIsLoading(false)
     }, [sortBy])
 
     const API_KEY = '08731270-8295-4142-8f41-a30ed1b544e9'
@@ -284,17 +287,20 @@ export default function Home() {
                         <SortBy sortBy={sortBy} setSortBy={setSortBy} />
                     </WrapSortBy>
                 </TitleBar>
+                {isLoading ? (
+                    <Spinner />
+                ) : (
+                    <>
+                        {renderTopNewsData()}
 
-                {/* Main Top News */}
-                {renderTopNewsData()}
-
-                {/* Sport News */}
-                <CategoryTitle>Sports</CategoryTitle>
-                <Content>{renderSportData()}</Content>
-                <CategoryTitle>Culture</CategoryTitle>
-                <Content>{renderCultureData()}</Content>
-                <CategoryTitle>Life And Style</CategoryTitle>
-                <Content>{renderLifeAndStyleData()}</Content>
+                        <CategoryTitle>Sports</CategoryTitle>
+                        <Content>{renderSportData()}</Content>
+                        <CategoryTitle>Culture</CategoryTitle>
+                        <Content>{renderCultureData()}</Content>
+                        <CategoryTitle>Life And Style</CategoryTitle>
+                        <Content>{renderLifeAndStyleData()}</Content>
+                    </>
+                )}
             </Container>
         </Layout>
     )

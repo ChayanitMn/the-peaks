@@ -17,6 +17,15 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     background-color: #F2F2F2;
     box-sizing: border-box;
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
   }
   body::after {
     content: '';
