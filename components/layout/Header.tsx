@@ -1,15 +1,16 @@
 import { useState } from 'react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import styled from 'styled-components'
 
 export default function Header() {
+    const router = useRouter()
     const [isSearchActive, setIsSearchActive] = useState(false)
-    const [seachValue, setSeachValue] = useState('')
+    const [seachValue, setSearchValue] = useState('')
 
     const handleKeyPress = (event: any) => {
         if (event.code === 'Enter') {
-            setSeachValue(event.target.value)
-            Router.push(`/search/?searchValue=${seachValue}`)
+            setSearchValue(event.target.value)
+            router.push(`/search/?searchValue=${seachValue}`)
         }
     }
 
@@ -23,6 +24,7 @@ export default function Header() {
                     <SearchWrapInput>
                         <SearchInput
                             placeholder="Search all news"
+                            onChange={(e) => setSearchValue(e.target.value)}
                             onKeyPress={(e) => handleKeyPress(e)}
                         />
                         <CustomSearchIcon

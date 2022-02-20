@@ -22,8 +22,6 @@ export default function Home() {
         setIsLoading(false)
     }, [sortBy])
 
-    const API_KEY = '08731270-8295-4142-8f41-a30ed1b544e9'
-
     async function fetchTopNewsData() {
         const res = await fetch(
             `https://content.guardianapis.com/search?api-key=${API_KEY}&section=news&order-by=${sortBy}`,
@@ -275,7 +273,7 @@ export default function Home() {
                     </div>
 
                     <WrapViewBookmark>
-                        <Button onClick={() => Router.push('/all-bookmark')}>
+                        <Button onClick={() => Router.push('/bookmark')}>
                             <BookmarkIcon
                                 src="/icons/bookmark.svg"
                                 alt="bookmark"

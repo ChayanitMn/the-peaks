@@ -1,9 +1,54 @@
-import Router from 'next/router'
+import { useEffect, useState } from 'react'
+import Router, { useRouter } from 'next/router'
 import styled from 'styled-components'
 import Layout from '../components/layout/Layout'
 import SortBy from '../components/SortBy'
 
 export default function SearchResults() {
+    const router = useRouter()
+    const [sortBy, setSortBy] = useState('newest')
+    const [searchValue, setSearchValue] = useState('')
+    const [searchResult, setSearchResult] = useState([])
+
+    useEffect(() => {
+        const queryString = router.query.searchValue
+        if (queryString && typeof queryString === 'string') {
+            setSearchValue(queryString)
+            fetchSearchResult()
+        }
+    }, [router])
+
+    async function fetchSearchResult() {
+        const res = await fetch(
+            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=news&order-by=${sortBy}`,
+        )
+        res.json()
+            .then((res) => setSearchResult(res.response.results))
+            .catch((err) => `Error is ${err}`)
+    }
+
+    const renderSearchResult = () => {
+        const news = searchResult.map((data) => {
+            const { webTitle, sectionId } = data
+            return (
+                <Card>
+                    <a href="#">
+                        <NewsImg
+                            src={`/home/${Math.floor(
+                                Math.random() * (15 - 1 + 1) + 1,
+                            )}.png`}
+                            alt="news image"
+                        />
+                        <WrapTitle>
+                            <Title>{webTitle}</Title>
+                        </WrapTitle>
+                    </a>
+                </Card>
+            )
+        })
+        return news
+    }
+
     return (
         <Layout>
             <Container>
@@ -13,7 +58,7 @@ export default function SearchResults() {
                     </div>
 
                     <WrapViewBookmark>
-                        <Button onClick={() => Router.push('/all-bookmark')}>
+                        <Button onClick={() => Router.push('/bookmark')}>
                             <BookmarkIcon
                                 src="/icons/bookmark.svg"
                                 alt="bookmark"
@@ -22,27 +67,10 @@ export default function SearchResults() {
                         </Button>
                     </WrapViewBookmark>
                     <WrapSortBy>
-                        <SortBy />
+                        <SortBy sortBy={sortBy} setSortBy={setSortBy} />
                     </WrapSortBy>
                 </TitleBar>
-                <Content>
-                    <Card>
-                        <a href="#">
-                            <NewsImg
-                                src="/news-card/pic.png"
-                                alt="news image"
-                            />
-                            <WrapTitle>
-                                <Title>
-                                    Liverpool Premier League trophy lift:
-                                    Special ceremony to mark success Liverpool
-                                    Premier League trophy lift: Special ceremony
-                                    to mark success
-                                </Title>
-                            </WrapTitle>
-                        </a>
-                    </Card>
-                </Content>
+                <Content>{renderSearchResult()}</Content>
             </Container>
         </Layout>
     )
