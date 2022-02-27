@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import useWindowSize from '../utils/hooks/useWindowSize'
 import Layout from '../components/layout/Layout'
@@ -5,6 +6,24 @@ import Bookmark from '../components/Bookmark'
 
 export default function NewsDetail() {
     const [width] = useWindowSize()
+    const [data, setData] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        setIsLoading(true)
+
+        setIsLoading(false)
+    }, [])
+
+    async function fetchNewsData() {
+        const res = await fetch(
+            `https://content.guardianapis.com/search?api-key=${process.env.NEXT_PUBLIC_API_KEY}&section=news`,
+        )
+        res.json()
+            .then((res) => setData(res.response.results))
+            .catch((err) => `Error is ${err}`)
+    }
+
     return (
         <Layout>
             <Container>

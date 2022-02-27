@@ -16,11 +16,11 @@ export default function SearchResults() {
             setSearchValue(queryString)
             fetchSearchResult()
         }
-    }, [router])
+    }, [router, sortBy])
 
     async function fetchSearchResult() {
         const res = await fetch(
-            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=news&order-by=${sortBy}`,
+            `https://content.guardianapis.com/search?api-key=${process.env.NEXT_PUBLIC_API_KEY}&section=news&order-by=${sortBy}`,
         )
         res.json()
             .then((res) => setSearchResult(res.response.results))
@@ -29,9 +29,9 @@ export default function SearchResults() {
 
     const renderSearchResult = () => {
         const news = searchResult.map((data) => {
-            const { webTitle, sectionId } = data
+            const { webTitle, sectionId, id } = data
             return (
-                <Card>
+                <Card key={id}>
                     <a href="#">
                         <NewsImg
                             src={`/home/${Math.floor(
@@ -58,7 +58,7 @@ export default function SearchResults() {
                     </div>
 
                     <WrapViewBookmark>
-                        <Button onClick={() => Router.push('/bookmark')}>
+                        <Button onClick={() => router.push('/bookmark')}>
                             <BookmarkIcon
                                 src="/icons/bookmark.svg"
                                 alt="bookmark"

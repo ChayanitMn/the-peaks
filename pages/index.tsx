@@ -1,4 +1,4 @@
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import NewsData from '../types/newsData'
@@ -6,6 +6,7 @@ import Layout from '../components/layout/Layout'
 import { SortBy, Spinner } from '../components/'
 
 export default function Home() {
+    const router = useRouter()
     const [topNewsData, setTopNewsData] = useState<NewsData[]>([])
     const [sportData, setSportData] = useState([])
     const [cultureData, setCultureData] = useState([])
@@ -24,7 +25,7 @@ export default function Home() {
 
     async function fetchTopNewsData() {
         const res = await fetch(
-            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=news&order-by=${sortBy}`,
+            `https://content.guardianapis.com/search?api-key=${process.env.NEXT_PUBLIC_API_KEY}&section=news&order-by=${sortBy}`,
         )
         res.json()
             .then((res) => setTopNewsData(res.response.results))
@@ -33,7 +34,7 @@ export default function Home() {
 
     async function fetchSportData() {
         const res = await fetch(
-            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=sport&order-by=${sortBy}`,
+            `https://content.guardianapis.com/search?api-key=${process.env.NEXT_PUBLIC_API_KEY}&section=sport&order-by=${sortBy}`,
         )
         res.json()
             .then((res) => setSportData(res.response.results))
@@ -41,7 +42,7 @@ export default function Home() {
     }
     async function fetchCultureData() {
         const res = await fetch(
-            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=culture&order-by=${sortBy}`,
+            `https://content.guardianapis.com/search?api-key=${process.env.NEXT_PUBLIC_API_KEY}&section=culture&order-by=${sortBy}`,
         )
         res.json()
             .then((res) => setCultureData(res.response.results))
@@ -49,7 +50,7 @@ export default function Home() {
     }
     async function fetchLifeAndStyleData() {
         const res = await fetch(
-            `https://content.guardianapis.com/search?api-key=${API_KEY}&section=lifeandstyle&order-by=${sortBy}`,
+            `https://content.guardianapis.com/search?api-key=${process.env.NEXT_PUBLIC_API_KEY}&section=lifeandstyle&order-by=${sortBy}`,
         )
         res.json()
             .then((res) => setLifeAndStyleData(res.response.results))
@@ -63,7 +64,7 @@ export default function Home() {
                     <WrapMainLeft>
                         <FirstNews>
                             <Card>
-                                <a href="/1">
+                                <a href={`${1}`}>
                                     <NewsImg
                                         src="/home/1.png"
                                         alt="news image"
@@ -194,10 +195,10 @@ export default function Home() {
     }
     const renderSportData = () => {
         const news = sportData.map((data) => {
-            const { webTitle, sectionId } = data
+            const { webTitle, sectionId, id } = data
             if (sectionId === 'sport') {
                 return (
-                    <Card>
+                    <Card key={id}>
                         <a href="/1">
                             <NewsImg
                                 src={`/home/${Math.floor(
@@ -218,10 +219,10 @@ export default function Home() {
 
     const renderCultureData = () => {
         const news = cultureData.map((data) => {
-            const { webTitle, sectionId } = data
+            const { webTitle, sectionId, id } = data
             if (sectionId === 'culture') {
                 return (
-                    <Card>
+                    <Card key={id}>
                         <a href="/1">
                             <NewsImg
                                 src={`/home/${Math.floor(
@@ -242,10 +243,10 @@ export default function Home() {
 
     const renderLifeAndStyleData = () => {
         const news = lifeAndStyleData.map((data) => {
-            const { webTitle, sectionId } = data
+            const { webTitle, sectionId, id } = data
             if (sectionId === 'lifeandstyle') {
                 return (
-                    <Card>
+                    <Card key={id}>
                         <a href="/1">
                             <NewsImg
                                 src={`/home/${Math.floor(
@@ -273,7 +274,7 @@ export default function Home() {
                     </div>
 
                     <WrapViewBookmark>
-                        <Button onClick={() => Router.push('/bookmark')}>
+                        <Button onClick={() => router.push('/bookmark')}>
                             <BookmarkIcon
                                 src="/icons/bookmark.svg"
                                 alt="bookmark"
