@@ -1,6 +1,6 @@
 ## Getting Started
 
-1. `git clone git@github.com:ChayanitMn/the-peaks.git`
+1. `git clone https://github.com/ChayanitMn/the-peaks.git`
 2. `git checkout main`
 3. `yarn install`
 4. get 'NEXT_PUBLIC_API_KEY' from e-mail
